@@ -1,7 +1,8 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-
-from users.models import CustomUser
-from users.serializers import UserSerializer
+from rest_framework.filters import OrderingFilter
+from users.models import CustomUser, Payments
+from users.serializers import UserSerializer, PaymentsSerializer, CustomsUserDetailSerializer
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -13,3 +14,16 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         serializer.save()
+
+
+class PaymentsViewSet(viewsets.ModelViewSet):
+    queryset = Payments.objects.all()
+    serializer_class = PaymentsSerializer
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ('payment_method', 'paid_course', 'paid_lesson')
+    ordering_fields = ('payment_date',)
+
+
+class CustomsUserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomsUserDetailSerializer
