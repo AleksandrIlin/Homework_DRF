@@ -1,10 +1,19 @@
 from django.db import models
 
+from users.models import CustomUser
+
 
 class Course(models.Model):
     title = models.CharField(max_length=255, verbose_name='название курса')
     preview = models.ImageField(upload_to='course/photo', blank=True, null=True)
     description = models.TextField()
+    owner = models.ForeignKey(
+        CustomUser,
+        verbose_name="Владелец",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     def __str__(self):
         return f"{self.title} - {self.description}"
@@ -21,6 +30,13 @@ class Lesson(models.Model):
     preview = models.ImageField(upload_to='lesson/photo', blank=True, null=True)
     link_to_video = models.URLField(max_length=200, blank=True, null=True)
     course = models.ForeignKey(Course, related_name='lessons', on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        CustomUser,
+        verbose_name="Владелец",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     def __str__(self):
         return f"{self.title} - {self.description}"
