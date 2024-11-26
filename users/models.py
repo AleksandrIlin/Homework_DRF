@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
+    """Модель кастомного пользователя"""
     username = models.CharField(max_length=50, verbose_name='username', help_text='Введите имя пользователя')
     email = models.EmailField(unique=True, verbose_name='Email', help_text='Введите свой email')
     phone_number = models.CharField(max_length=15, verbose_name='Телефон', blank=True, null=True,
@@ -23,6 +24,7 @@ class CustomUser(AbstractUser):
 
 
 class Payments(models.Model):
+    """Модель платежа пользователя"""
     PAYMENT_METHOD_CHOICES = [("наличные", "наличные"), ("перевод на счет", "перевод на счет")]
 
     owner = models.ForeignKey(CustomUser, verbose_name="Владелец", blank=True, null=True,
