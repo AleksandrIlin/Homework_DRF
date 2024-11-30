@@ -12,7 +12,7 @@ app_name = UsersConfig.name
 
 
 router = DefaultRouter()
-router.register(r'profile', UserProfileViewSet, basename='user-profile')
+router.register(r'profile', UserProfileViewSet, basename='userprofile')
 router.register(r'payments', PaymentsViewSet, basename='payments')
 router.register(r'users', CustomsUserViewSet, basename='users')
 

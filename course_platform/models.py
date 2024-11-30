@@ -4,6 +4,7 @@ from users.models import CustomUser
 
 
 class Course(models.Model):
+    """Модель курса на обучающей платформе"""
     title = models.CharField(max_length=255, verbose_name='название курса')
     preview = models.ImageField(upload_to='course/photo', blank=True, null=True)
     description = models.TextField()
@@ -25,6 +26,7 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
+    """Модель урока на обучающей платформе"""
     title = models.CharField(max_length=255, verbose_name='название курса')
     description = models.TextField()
     preview = models.ImageField(upload_to='lesson/photo', blank=True, null=True)
@@ -45,3 +47,12 @@ class Lesson(models.Model):
         verbose_name = 'урок'
         verbose_name_plural = 'уроки'
         ordering = ['title']
+
+
+class Subscription(models.Model):
+    """Модель подписки на обучающей платформе"""
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'course')

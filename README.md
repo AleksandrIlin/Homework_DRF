@@ -21,7 +21,9 @@ poetry install
 4. Тесты:
 
 ```
-отсутствуют
+python manage.py test
+coverage run --source='.' manage.py test
+coverage report
 ```
 
 5. Запуск проекта: 
