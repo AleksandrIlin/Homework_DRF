@@ -7,9 +7,16 @@ from users.permissions import IsModer, IsOwner
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 
 
+@method_decorator(
+    name="list",
+    decorator=swagger_auto_schema(operation_description="description from swagger_auto_schema via method_decorator"),
+)
 class CourseViewSet(viewsets.ModelViewSet):
+    """Course endpoint"""
     pagination_class = CoursePaginator
     queryset = Course.objects.all()
 
@@ -34,6 +41,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
+    """Lesson creation enpoint."""
     serializer_class = LessonSerializers
     permission_classes = (~IsModer, IsAuthenticated)
 
@@ -44,29 +52,34 @@ class LessonCreateAPIView(generics.CreateAPIView):
 
 
 class LessonListAPIView(generics.ListAPIView):
+    """Enpoint view lessons."""
     pagination_class = LessonPaginator
     serializer_class = LessonSerializers
     queryset = Lesson.objects.all()
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
+    """Enpoint viewing lesson."""
     serializer_class = LessonSerializers
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsModer | IsOwner)
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
+    """Lesson update endpoint."""
     serializer_class = LessonSerializers
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsModer | IsOwner)
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
+    """Endpoint for deleting a lesson."""
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsOwner | ~IsModer)
 
 
 class SubscriptionView(views.APIView):
+    """Subscription endpoint."""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
