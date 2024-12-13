@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from rest_framework import viewsets, generics, views
 from rest_framework.permissions import IsAuthenticated
 from course_platform.models import Course, Lesson, Subscription
@@ -9,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
+from course_platform.task import send_course_update_notification
 
 
 @method_decorator(
@@ -38,6 +41,14 @@ class CourseViewSet(viewsets.ModelViewSet):
         elif self.action == "destroy":
             self.permission_classes = (~IsModer | IsOwner,)
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        now = timezone.now()
+
+        # Проверяем время последнего обновления
+        if course.updated_at < now - datetime.timedelta(hours=4):
+            send_course_update_notification.delay(course.id)
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
