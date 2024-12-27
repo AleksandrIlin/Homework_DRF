@@ -29,5 +29,5 @@ coverage report
 5. Запуск проекта: 
 
 ```
-python manage.py runserver
+docker-compose up -d --build
 ```
