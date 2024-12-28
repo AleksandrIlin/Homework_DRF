@@ -41,7 +41,6 @@ services:
     env_file:
       - .env
 
-
   celery:
     build: .
     tty: true
