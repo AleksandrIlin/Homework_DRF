@@ -8,5 +8,5 @@ ENV PYTHONPATH="/app"
 ENV POETRY_VIRTUALENVS_CREATE=false
 COPY . .
 COPY pyproject.toml poetry.lock* ./
-
+RUN poetry shell
 RUN poetry install
