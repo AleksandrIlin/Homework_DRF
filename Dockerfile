@@ -1,8 +1,7 @@
 FROM python:3.12 AS builder
 
 
-RUN curl -sSL https://install.python-poetry.org | python3 - && \
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 
 WORKDIR /app
@@ -15,6 +14,6 @@ ENV POETRY_HTTP_TIMEOUT=120
 COPY pyproject.toml poetry.lock* ./
 
 
-RUN /bin/sh -c "source ~/.bashrc && poetry install --no-root"
+RUN poetry install --no-root"
 
 COPY . .
