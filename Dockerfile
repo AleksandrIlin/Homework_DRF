@@ -1,10 +1,7 @@
 FROM python:3.12 AS builder
 
-# Установите зависимости системы
-RUN apt-get update && apt-get install -y curl -sSL https://install.python-poetry.org | python3 - && rm -rf /var/lib/apt/lists/*
-
 # Установите Poetry
-# RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # Добавьте Poetry в PATH
 ENV PATH="/root/.local/bin:$PATH"
