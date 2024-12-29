@@ -10,7 +10,7 @@ ENV POETRY_VIRTUALENVS_CREATE=false
 ENV POETRY_HTTP_TIMEOUT=120
 
 RUN echo "Проверка установки Poetry..."
-RUN ls -la /root/.local/bin/
+RUN ls -la /root/.local/bin/ || { echo "Директория не найдена"; exit 1; }
 RUN poetry --version || { echo "Poetry не найден в PATH"; exit 1; }
 
 COPY pyproject.toml poetry.lock ./
