@@ -14,6 +14,6 @@ ENV POETRY_HTTP_TIMEOUT=120
 COPY pyproject.toml poetry.lock* ./
 
 
-RUN poetry install
+RUN poetry install --no-root
 
 COPY . .
