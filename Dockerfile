@@ -8,5 +8,5 @@ ENV POETRY_VIRTUALENVS_CREATE=false
 ENV POETRY_HTTP_TIMEOUT=120
 
 COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-root
+RUN poetry install --only main
 COPY . .
