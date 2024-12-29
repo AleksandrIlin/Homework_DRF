@@ -30,6 +30,8 @@ services:
 
   app:
     build: .
+    dns:
+      - 8.8.8.8
     tty: true
     ports:
      - "8000:8000"
