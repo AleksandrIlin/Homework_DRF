@@ -5,7 +5,7 @@ services:
     image: redis:latest
     restart: on-failure
     expose:
-      - "6379"
+      - "6379:6379"
 
   db:
     image: postgres:16-alpine
