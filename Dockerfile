@@ -8,5 +8,6 @@ ENV PYTHONPATH="/app"
 ENV POETRY_VIRTUALENVS_CREATE=false
 COPY . .
 COPY pyproject.toml poetry.lock* ./
+RUN curl -sSL https://install.python-poetry.org | python3 -
 RUN poetry shell
 RUN poetry install
