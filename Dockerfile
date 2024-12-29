@@ -1,7 +1,8 @@
 FROM python:3.12 AS builder
 
 
-RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
+    export PATH="$HOME/.local/bin:$PATH"
 
 
 WORKDIR /app
