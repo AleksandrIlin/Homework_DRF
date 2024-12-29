@@ -9,6 +9,4 @@ ENV POETRY_VIRTUALENVS_CREATE=false
 COPY . .
 COPY pyproject.toml poetry.lock* ./
 
-RUN poetry install --no-root --no-dev
-
-
+RUN poetry install
