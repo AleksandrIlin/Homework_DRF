@@ -1,6 +1,8 @@
 FROM python:3.12 AS builder
 
-
+RUN apt-get update || echo "apt-get update failed" && \
+    apt-get install -y curl dnsutils || echo "apt-get install failed"
+    
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
 
