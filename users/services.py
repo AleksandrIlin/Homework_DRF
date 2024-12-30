@@ -1,8 +1,8 @@
 import os
 
 import stripe
-a = "sk_test_51QQl1iEFB10ARY4qwq5uWxlPiq1YZOBWdcIyot440dS0JSEQFMlQazLNQZ9MxZGPWA50PCokhTVyQZkYCPOiZAJD00Uz6diqG2"
-stripe.api_key = os.getenv('SECRET_KEY_API', a)
+
+stripe.api_key = os.getenv('SECRET_KEY_API')
 
 
 def create_stripe_product(course):
