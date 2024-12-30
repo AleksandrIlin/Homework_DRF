@@ -57,6 +57,6 @@ jobs:
 
       - name: Deploy to server
         run: |
-          sshpass -p "${{ secrets.ROOT_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@194.87.76.153 "cd /path/to/your/app && git pull && poetry install && sudo systemctl restart nginx"
+          sshpass -p "${{ secrets.ROOT_PASSWORD }}" ssh -v -o StrictHostKeyChecking=no root@194.87.76.153 "cd /path/to/your/app && git pull && poetry install && sudo systemctl restart nginx"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
