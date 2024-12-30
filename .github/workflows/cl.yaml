@@ -59,7 +59,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to server
-        run: |
-          sshpass -p "" ssh -v -o StrictHostKeyChecking=no root@194.87.76.153 "cd /path/to/your/app && git pull && poetry install && sudo systemctl restart nginx"
         env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY}}
           SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY}}
+          ROOT_PASSWORD: ${{ secrets.ROOT_PASSWORD}}
+        run: |
+          sshpass -p "${{ secrets.ROOT_PASSWORD}}" ssh -v -o StrictHostKeyChecking=no root@194.87.76.153 "cd /path/to/your/app && git pull && poetry install && sudo systemctl restart nginx"
