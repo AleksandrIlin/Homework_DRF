@@ -6,8 +6,6 @@ services:
       - "6379"
 
   db:
-    build:
-      context: .
     image: postgres:16-alpine
     restart: on-failure
     env_file:
@@ -17,19 +15,17 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      test: ["CMD-SHELL", "-c", "pg_isready -U $POSTGRES_USER"]
       interval: 10s
       retries: 5
       timeout: 5s
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile.app
+    build: .
     tty: true
     ports:
      - "8000:8000"
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       db:
         condition: service_healthy
@@ -39,9 +35,7 @@ services:
       - .env
 
   celery:
-    build:
-      context: .
-      dockerfile: Dockerfile.celery
+    build: .
     tty: true
     command: celery -A config worker --loglevel=info
     restart: on-failure
@@ -55,9 +49,7 @@ services:
       - .env
 
   celery_beat:
-    build:
-      context: .
-      dockerfile: Dockerfile.celery_beat
+    build: .
     tty: true
     command: celery -A config beat --loglevel=info
     restart: on-failure
@@ -71,4 +63,5 @@ services:
       - .env
 
 volumes:
-  pg_data:
+  pg_data: {}
+
