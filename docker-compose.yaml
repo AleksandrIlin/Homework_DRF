@@ -1,17 +1,14 @@
 services:
-  redis:
-    build:
-      context: .
-      dockerfile: Dockerfile.redis
-    image: redis:latest
-    restart: on-failure
-    expose:
-      - "6379"
+  services:
+    redis:
+      image: redis:latest
+      restart: on-failure
+      expose:
+        - "6379"
 
   db:
     build:
       context: .
-      dockerfile: Dockerfile.db
     image: postgres:16-alpine
     restart: on-failure
     env_file:
