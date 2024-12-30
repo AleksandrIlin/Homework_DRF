@@ -24,9 +24,7 @@ jobs:
         run: |
           poetry install --no-root
 
-      - name: Создать роль PostgreSQL
-        run: |
-          sudo -u postgres psql -c "CREATE ROLE runner WITH LOGIN PASSWORD '12345';"
+      
 
       - name: Set up PostgreSQL
         run: |
@@ -36,7 +34,9 @@ jobs:
           sudo -u postgres psql -c "ALTER USER postgres PASSWORD '12345';"
           sudo -u postgres psql -c "CREATE DATABASE lesson;"
           sudo -u postgres psql -c "CREATE USER runner WITH PASSWORD '12345';"
+          sudo -u postgres psql -c "CREATE ROLE runner WITH LOGIN PASSWORD '12345';"
           sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE lesson TO postgres;"
+
       - name: Run makemigrations
         run: |
           poetry run python manage.py makemigrations
