@@ -1,6 +1,5 @@
 FROM python:3.12 AS builder
 
-RUN echo "nameserver 8.8.8.8" | tee /etc/resolv.conf > /dev/null
 RUN apt-get update && apt-get install -y curl dnsutils
 
 RUN curl -sSL https://install.python-poetry.org | python3 - \
