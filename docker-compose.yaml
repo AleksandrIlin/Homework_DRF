@@ -6,11 +6,7 @@ services:
       - "6379"
 
   db:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: "POSTGRES_DB"
-      POSTGRES_USER: "POSTGRES_USER"
-      POSTGRES_PASSWORD: "POSTGRES_PASSWORD"
+    image: postgres:16-alpine
     restart: on-failure
     env_file:
       - .env
@@ -29,7 +25,7 @@ services:
     tty: true
     ports:
      - "8000:8000"
-    command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       db:
         condition: service_healthy
@@ -37,6 +33,7 @@ services:
       - .:/app
     env_file:
       - .env
+
 
   celery:
     build: .
@@ -66,5 +63,6 @@ services:
     env_file:
       - .env
 
+
 volumes:
-  pg_data: {}
+  pg_data:
