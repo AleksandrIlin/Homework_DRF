@@ -65,3 +65,6 @@ services:
       - app
     env_file:
       - .env
+
+volumes:
+  pg_data: {}
