@@ -33,7 +33,6 @@ jobs:
           sudo service postgresql start
           sudo -u postgres psql -c "ALTER USER postgres PASSWORD '12345';"
           sudo -u postgres psql -c "CREATE DATABASE lesson;"
-          sudo -u postgres psql -c "CREATE USER runner WITH PASSWORD '12345';"
           sudo -u postgres psql -c "CREATE ROLE runner WITH LOGIN PASSWORD '12345';"
           sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE lesson TO postgres;"
 
