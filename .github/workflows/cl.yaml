@@ -22,7 +22,8 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: |
-          poetry install
+          poetry install --no-root
+
       - name: Создать роль PostgreSQL
         run: |
           sudo -u postgres psql -c "CREATE ROLE runner WITH LOGIN PASSWORD '12345';"
