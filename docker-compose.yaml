@@ -6,7 +6,7 @@ services:
       - "6379"
 
   db:
-    image: postgres:16-alpine
+    image: postgres:latest
     environment:
       POSTGRES_DB: "POSTGRES_DB"
       POSTGRES_USER: "POSTGRES_USER"
