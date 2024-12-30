@@ -38,8 +38,6 @@ jobs:
           sudo -u postgres psql -c "GRANT CREATE ON SCHEMA public TO runner;"
 
       - name: Run makemigrations
-        env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           poetry run python manage.py makemigrations
 
