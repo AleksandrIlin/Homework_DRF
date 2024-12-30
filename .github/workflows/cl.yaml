@@ -35,6 +35,7 @@ jobs:
           sudo -u postgres psql -c "CREATE DATABASE lesson;"
           sudo -u postgres psql -c "CREATE ROLE runner WITH LOGIN PASSWORD '12345';"
           sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE lesson TO runner;"
+          sudo -u postgres psql -c "GRANT CREATE ON SCHEMA public TO runner;"
 
       - name: Run makemigrations
         run: |
