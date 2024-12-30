@@ -1,11 +1,11 @@
-
+version: '3.8'
 
 services:
   redis:
     image: redis:latest
     restart: on-failure
     expose:
-      - "6379:6379"
+      - "6379"
 
   db:
     image: postgres:16-alpine
@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     expose:
-      - "5432:5432"
+      - "5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
@@ -35,12 +35,12 @@ services:
      - "8000:8000"
     command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     volumes:
       - .:/app
     env_file:
       - .env
+
 
   celery:
     build: .
