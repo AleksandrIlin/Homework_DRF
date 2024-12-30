@@ -38,7 +38,8 @@ jobs:
           sudo -u postgres psql -c "GRANT CREATE ON SCHEMA public TO runner;"
 
       - name: Run makemigrations
-          SECRET_KEY="django-insecure-x)28ew7z5t*p*63w)lu!5pm2_1466#21by73-at^at9sx!k85l"
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           poetry run python manage.py makemigrations
 
